@@ -23,6 +23,6 @@ while True:
         if traffic < 5:
             light.green()
         elif traffic < 10:
-            light.mid_red()
+            light.red_mid()
         else:
             light.red_top()
