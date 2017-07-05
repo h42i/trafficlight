@@ -10,19 +10,31 @@ class Lights:
 
     def write_pixels:
         apa.write()
-
-    def green:
-        for i in range(19)
-            apa[i] = (255, 255, 255, 31)
-        apa.write()
-
-    def red_mid:
-        for i in range(18)
-            apa[i+19] = (255, 255, 255, 31)
-        apa.write()
+    
 
     def red_top:
+    '''sets the top-red-light on and all others off'''
         for i in range(19)
-            apa[i+37] = (255, 255, 255, 31)
+            self.apa[i+37] = (255, 255, 255, 31)
+            self.apa[i+19] = (0, 0, 0, 0)
+            self.apa[i] = (0, 0, 0, 0)
         apa.write()
+    
+    def red_mid:
+    '''sets the mid-red-light on and all others off'''
+        for i in range(18)
+            self.apa[i+37] =(0, 0, 0, 0)
+            self.apa[i+19] = (255, 255, 255, 31)
+            self.apa[i] = (0, 0, 0, 0)
+        apa.write()
+
+    def green:
+    '''sets the green light on and all others off'''
+        for i in range(19)
+            self.apa[i+37] = (0, 0, 0, 0)
+            self.apa[i+19] = (0, 0, 0, 0)
+            self.apa[i] = (255, 255, 255, 31)
+        apa.write()
+
+
 
