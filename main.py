@@ -15,14 +15,33 @@ print('network config:', wlan.ifconfig())
 tr = Traffic()
 light = Lights()
 
+print('testing...')
+light.set_all_color((0, 0, 0, 0))
+time.sleep(0.5)
+light.set_low_load()
+time.sleep(0.2)
+light.set_middle_load()
+time.sleep(0.2)
+light.set_high_load()
+time.sleep(0.2)
+light.set_all_color((255, 255, 255, 31))
+time.sleep(0.2)
+light.set_all_color((0, 0, 0, 0))
+time.sleep(0.2)
+light.set_all_color((255, 255, 255, 31))
+time.sleep(0.2)
+light.set_all_color((0, 0, 0, 0))
+print('testing complete')
+
 while True:
+    time.sleep(5)
+
     traffic = tr.get_traffic()
 
     if traffic != 0 and traffic != None:
-        print(str(traffic) + " MB/s")
         if traffic < 5:
-            light.green()
+            light.set_low_load()
         elif traffic < 10:
-            light.red_mid()
+            light.set_middle_load()
         else:
-            light.red_top()
+            light.set_high_load()
