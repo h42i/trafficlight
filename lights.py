@@ -12,7 +12,7 @@ class Lights:
         apa.write()
     
 
-    def red_top:
+    def red_top():
     '''sets the top-red-light on and all others off'''
         for i in range(19)
             self.apa[i+37] = (255, 255, 255, 31)
@@ -20,7 +20,7 @@ class Lights:
             self.apa[i] = (0, 0, 0, 0)
         apa.write()
     
-    def red_mid:
+    def red_mid():
     '''sets the mid-red-light on and all others off'''
         for i in range(18)
             self.apa[i+37] =(0, 0, 0, 0)
@@ -28,7 +28,7 @@ class Lights:
             self.apa[i] = (0, 0, 0, 0)
         apa.write()
 
-    def green:
+    def green():
     '''sets the green light on and all others off'''
         for i in range(19)
             self.apa[i+37] = (0, 0, 0, 0)
