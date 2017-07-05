@@ -31,6 +31,7 @@ time.sleep(0.2)
 light.set_all_color((255, 255, 255, 31))
 time.sleep(0.2)
 light.set_all_color((0, 0, 0, 0))
+light.set_low_load()
 print('testing complete')
 
 while True:
