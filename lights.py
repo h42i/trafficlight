@@ -1,14 +1,16 @@
 from machine import Pin
 from apa102 import APA102
+import time
 
 class Lights:
-
+    counter = None
     apa = None
 
     def __init__(self):
         clock = Pin(12, Pin.OUT)
         data = Pin(13, Pin.OUT)
         self.apa = APA102(clock, data, 56)
+        self.counter = 0
 
     def set_low_load(self):
         '''
@@ -36,6 +38,16 @@ class Lights:
         self.set_middle_color((0, 0, 0, 0))
         self.set_top_color((255, 255, 255, 31))
         self.write_pixels()
+
+    def set_chaos_load(self):
+        self.set_bottom_color((0, 0, 0, 0))
+        self.set_middle_color((0, 0, 0, 0))
+        for i in range(620):
+            self.counter = i%31
+            self.set_top_color((255, 255, 255, self.counter))
+            self.write_pixels()
+            
+
 
     def write_pixels(self):
         '''
@@ -72,3 +84,4 @@ class Lights:
         '''
         for i in range(37, 56):
             self.apa[i] = color
+
