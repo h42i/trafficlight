@@ -1,5 +1,6 @@
 import network
-import traffic
+from traffic import *
+import time
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -10,4 +11,12 @@ if not wlan.isconnected():
         pass
 print('network config:', wlan.ifconfig())
 
-traffic.main()
+tr = Traffic()
+
+time.sleep(5)
+
+while True:
+    traffic = tr.get_traffic()
+
+    if traffic != 0 and traffic != None:
+        print(str(traffic) + " MB/s")
