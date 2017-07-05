@@ -45,7 +45,7 @@ class Traffic:
 
         speed = self.gresp.varbinds[self.oid_speed][1]
 
-        time.sleep(self.delay)
+        time.sleep(1)
 
         self.greq.id = time.ticks_us()
         self.sock.sendto(self.greq.tobytes(), (self.agent_ip, self.agent_port))
