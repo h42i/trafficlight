@@ -2,7 +2,9 @@ import network
 from traffic import *
 import time
 from lights import *
+from umqtt.simple import MQTTClient
 
+# Setup Network
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 if not wlan.isconnected():
@@ -12,9 +14,20 @@ if not wlan.isconnected():
         pass
 print('network config:', wlan.ifconfig())
 
+# Setup MQTT
+def sub_cb(topic, msg):
+    print((topic,msg))
+
+server = "atlas.hasi"
+c = MQTTClient("traffic_light", server)
+c.set_callback(sub_cb)
+c.connect()
+c.subscribe(b"hasi/lights/traffic_light")
+
 tr = Traffic()
 light = Lights()
 
+# Test routine
 print('testing...')
 light.set_all_color((0, 0, 0, 0))
 time.sleep(0.5)
@@ -35,6 +48,8 @@ light.set_low_load()
 print('testing complete')
 
 while True:
+    c.check_msg()
+    # Light to the traffic
     time.sleep(5)
 
     traffic = tr.get_traffic()
@@ -48,3 +63,4 @@ while True:
             light.set_chaos_load()
         else:
             light.set_high_load()
+c.disconnect()
