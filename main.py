@@ -14,9 +14,15 @@ if not wlan.isconnected():
         pass
 print('network config:', wlan.ifconfig())
 
-# Setup MQTT
+mqtt_message = None
+# Triggered by c.check_msg()
 def sub_cb(topic, msg):
-    print((topic,msg))
+    global mqtt_message
+    a = str(msg, "utf-8")
+    if a == "off":
+        mqtt_message = str(msg, "utf-8")
+    elif a == "on":
+        mqtt_message = str(msg, "utf-8")
 
 server = "atlas.hasi"
 c = MQTTClient("traffic_light", server)
@@ -48,9 +54,18 @@ light.set_low_load()
 print('testing complete')
 
 while True:
+    #check for mqtt-messages
     c.check_msg()
+    if mqtt_message == "off":
+        light.set_all_color((0, 0, 0, 0))
+        while True:
+            time.sleep(1)
+            c.check_msg()
+            if mqtt_message == "on":
+                break
+    
     # Light to the traffic
-    time.sleep(5)
+    time.sleep(1)
 
     traffic = tr.get_traffic()
 
