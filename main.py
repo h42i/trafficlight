@@ -18,11 +18,8 @@ mqtt_message = None
 # Triggered by c.check_msg()
 def sub_cb(topic, msg):
     global mqtt_message
-    a = str(msg, "utf-8")
-    if a == "off":
-        mqtt_message = str(msg, "utf-8")
-    elif a == "on":
-        mqtt_message = str(msg, "utf-8")
+    mqtt_message = str(msg, "utf-8")
+
 
 server = "atlas.hasi"
 c = MQTTClient("traffic_light", server)
