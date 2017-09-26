@@ -92,24 +92,28 @@ def loop():
     global snmp_traffic
 
     while True:
-        #check for mqtt-messages
-        time.sleep(1)
-        mqtt_client.check_msg()
+        if wlan.isconnected():
+            #check for mqtt-messages
+            time.sleep(1)
+            mqtt_client.check_msg()
 
-        if not lights_on:
-            light.set_all_color((0, 0, 0, 0))
+            if not lights_on:
+                light.set_all_color((0, 0, 0, 0))
+            else:
+                traffic = snmp_traffic.get_traffic()
+
+                if traffic != 0 and traffic != None:
+                    if traffic < 5:
+                        light.set_low_load()
+                    elif traffic < 10:
+                        light.set_middle_load()
+                    elif traffic > 14:
+                        light.set_chaos_load()
+                    else:
+                        light.set_high_load()
+        
         else:
-            traffic = snmp_traffic.get_traffic()
-
-            if traffic != 0 and traffic != None:
-                if traffic < 5:
-                    light.set_low_load()
-                elif traffic < 10:
-                    light.set_middle_load()
-                elif traffic > 14:
-                    light.set_chaos_load()
-                else:
-                    light.set_high_load()
+            setup()
 
 setup()
 test_lights()
