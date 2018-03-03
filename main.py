@@ -107,10 +107,10 @@ def loop():
                         light.set_low_load()
                     elif traffic < 10:
                         light.set_middle_load()
-                    elif traffic > 14:
-                        light.set_chaos_load()
-                    else:
+                    elif traffic < 14:
                         light.set_high_load()
+                    else:
+                        light.set_chaos_load()
         
         else:
             setup()
