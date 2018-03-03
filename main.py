@@ -16,6 +16,7 @@ lights_on = True
 mqtt_client = None
 snmp_traffic = None
 light = None
+wlan = None
 
 # Set everything up
 def setup():
@@ -29,6 +30,7 @@ def setup():
 
     global snmp_traffic
     global light
+    global wlan
 
     # Setup Network
     wlan = network.WLAN(network.STA_IF)
@@ -90,6 +92,7 @@ def loop():
     global lights_on
     global light
     global snmp_traffic
+    global wlan
 
     while True:
         if wlan.isconnected():
@@ -103,7 +106,7 @@ def loop():
                 traffic = snmp_traffic.get_traffic()
 
                 if traffic != 0 and traffic != None:
-                    if traffic < 5:
+                    if traffic < 2:
                         light.set_low_load()
                     elif traffic < 10:
                         light.set_middle_load()
