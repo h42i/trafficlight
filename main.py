@@ -7,7 +7,7 @@ from traffic import *
 # Config
 wifi_ssid = "HaSi-Kein-Internet-Legacy"
 wifi_psk = "bugsbunny"
-mqtt_server = "atlas.hasi"
+mqtt_server = "mqtt.hasi"
 mqtt_client_name = "traffic_light"
 mqtt_topic = "hasi/lights/traffic_light"
 

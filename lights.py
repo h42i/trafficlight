@@ -7,13 +7,13 @@ class Lights:
     apa = None
 
     def __init__(self):
-        clock = Pin(12, Pin.OUT)
-        data = Pin(13, Pin.OUT)
+        clock = Pin(12, Pin.OUT)          # Green
+        data = Pin(13, Pin.OUT)           # Yellow 
         self.apa = APA102(clock, data, 56)
         self.counter = 0
 
     def set_low_load(self):
-        '''
+        '''  
         define color for green-light
         '''
         self.set_bottom_color((255, 255, 255, 31))
